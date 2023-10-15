@@ -11,6 +11,7 @@
 vec3_t cube_points[N_POINTS];
 vec2_t projected_points[N_POINTS];
 
+float fov_factor = 128;//play w/ number, so far this is a magic number
 bool is_running = false;
 
 void processInput(void){
@@ -31,7 +32,7 @@ void processInput(void){
 }
 
 vec2_t project(vec3_t point){
-	vec2_t projected_point = {.x = point.x , .x = point.y};
+	vec2_t projected_point = {fov_factor *point.x , fov_factor * point.y};
 	return projected_point;	
 }
 
@@ -78,8 +79,8 @@ void render(void){
 	for(int i=0;i<N_POINTS;i++){
 		vec2_t projected_point = projected_points[i];
 		draw_rect(
-		projected_point.x,
-		projected_point.y,
+		projected_point.x +(window_width/2),// push pts to center of window
+		projected_point.y + (window_height/2),
 		4,
 		4,
 		0xFFFFFF00
