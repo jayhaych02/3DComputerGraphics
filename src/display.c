@@ -14,7 +14,7 @@ bool initialize_window(void){
  }
 	//Query SDL --> Full Screen Max Width & Height of current Monitor?
 	SDL_DisplayMode display_mode;//struct
-	SDL_GetCurrentDisplayMode(0,&display_mode);// index 0 = main monitor
+	SDL_GetCurrentDisplayMode(0,&display_mode);// index 0 = main monitor of user running this code
 	
 	window_width = display_mode.w;
 	window_height = display_mode.h;
@@ -82,6 +82,13 @@ void clear_color_buffer(uint32_t color){
 		}
 	}
 			
+}
+
+//2D thinking to 1D since color buffer = 1D
+void draw_pixel(int x, int y, uint32_t color){
+	if(x<window_width && y<window_height){
+		color_buffer[(window_width*y)+x] = color;
+	}
 }
 
 void destroy_window(void){
