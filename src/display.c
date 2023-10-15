@@ -55,11 +55,20 @@ void draw_grid(void){
 
 }
 
+//2D thinking to 1D since color buffer = 1D
+void draw_pixel(int x, int y, uint32_t color){
+	if(x>=0 && x<window_width && y>=0 && y<window_height){
+		color_buffer[(window_width*y)+x] = color;
+	}
+}
+
 void draw_rect(int x, int y, int width, int height, uint32_t color ){
 	//x y is the top left corner =  start pos of the rectangle
-	for(int xstart = x; xstart<width; xstart++){
-		for(int ystart = y; ystart<height; ystart++){
-			color_buffer[(window_width*ystart) + xstart] = color;
+	for(int i=0;i<width; i++){
+		for(int j=0;j<height;j++){
+			int current_x = x+i;
+			int current_y = y+j;
+			draw_pixel(current_x,current_y,color);
 		}
 	}
 }
@@ -84,12 +93,7 @@ void clear_color_buffer(uint32_t color){
 			
 }
 
-//2D thinking to 1D since color buffer = 1D
-void draw_pixel(int x, int y, uint32_t color){
-	if(x<window_width && y<window_height){
-		color_buffer[(window_width*y)+x] = color;
-	}
-}
+
 
 void destroy_window(void){
     free(color_buffer);
