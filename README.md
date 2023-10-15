@@ -1,2 +1,2 @@
 # 3DComputerGraphics
-Creates Software Renderer from Utilizing C
+Creates Software Renderer Utilizing the C Programming Language
