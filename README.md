@@ -1,3 +1,3 @@
 # 3DComputerGraphics
-Software Renderer Utilizing the C Programming Language
+Software renderer creation in C Linux
 
