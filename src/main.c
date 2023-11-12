@@ -11,7 +11,9 @@
 vec3_t cube_points[N_POINTS];
 vec2_t projected_points[N_POINTS];
 
-float fov_factor = 128;//play w/ number, so far this is a magic number
+vec3_t camera_pos = {0,0,-5};
+
+float fov_factor = 640;//play w/ number, so far this is a magic number
 bool is_running = false;
 
 void processInput(void){
@@ -31,8 +33,9 @@ void processInput(void){
 
 }
 
+//Receives 3D Vector --> Returns projected 2D Point
 vec2_t project(vec3_t point){
-	vec2_t projected_point = {fov_factor *point.x , fov_factor * point.y};
+	vec2_t projected_point = { (fov_factor*point.x)/point.z , (fov_factor * point.y)/point.z};
 	return projected_point;	
 }
 
@@ -68,6 +71,8 @@ void setup(void){
 void update(void){
 	for(int i=0;i<N_POINTS;i++){//ignores z component and returns x&y of cube
 		vec3_t point = cube_points[i];//each index i = Vector3 
+		//move the pts away from the camera
+		point.z-=camera_pos.z;
 		vec2_t projected_point = project(point);
 		projected_points[i] = projected_point;
 	}
